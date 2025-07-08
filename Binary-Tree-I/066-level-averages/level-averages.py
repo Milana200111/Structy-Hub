@@ -3,7 +3,6 @@
 #     self.val = val
 #     self.left = None
 #     self.right = None
-from statistics import mean 
 def level_averages(root):
   if root is None:
     return []
@@ -19,10 +18,9 @@ def level_averages(root):
       stack.append((node.left,level+1))
     if(node.right):
       stack.append((node.right,level+1))
-  sol=[]
-  for i in res:
-    sol.append(mean(i))
-  return sol 
+  for i in range(len(res)):
+    res[i]=sum(res[i])/len(res[i])
+  return res 
     
     
   
