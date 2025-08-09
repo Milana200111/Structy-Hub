@@ -2,22 +2,21 @@ from collections import deque
 def rare_routing(n, roads):
   if not roads:
     return False 
-  graph={}
+  graph={i:[] for i in range(n)}
   for n1,n2 in roads:
-    if n1 not in graph:
-      graph[n1]=[]
     graph[n1].append(n2)
-    if n2 not in graph:
-      graph[n2]=[]
     graph[n2].append(n1)
   visited=set()
-  comp_count=[0]
+  comp_count=0
   for node in graph:
     if node not in visited:
-      if(detect_cycle(node,graph,visited,comp_count)==True or comp_count[-1]>1):
+      if(detect_cycle(node,graph,visited)):
         return False
+      comp_count+=1
+      if(comp_count>1):
+        return False 
   return True 
-def detect_cycle(node,graph,visited,comp_count):
+def detect_cycle(node,graph,visited):
   queue=deque([(node,-1)])
   visited.add(node)
   while(queue):
@@ -28,7 +27,6 @@ def detect_cycle(node,graph,visited,comp_count):
         visited.add(neighbor)
       elif(neighbor!=parent):
         return True 
-  comp_count[-1]+=1
   return False 
         
 
